@@ -1,0 +1,22 @@
+{% extends 'backend/base.html' %}
+
+{% block head %}
+    <meta http-equiv="refresh" content="300">
+{% endblock %}
+
+{% block content %}
+    <h1>Dashboard</h1>
+    <table>
+        <tr>
+            <th>Hour</th>
+            <th>Count</th>
+        </tr>
+        {% for tweet in object_list %}
+        <tr>
+            <td>{{ tweet.tweet_hour }}</td>
+            <td>{{ tweet.tweet_cnt }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
