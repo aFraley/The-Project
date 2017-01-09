@@ -5,7 +5,6 @@ import tweepy
 
 from django.db import IntegrityError
 from django.db.models import Max, Min
-from django.db.models.functions import TruncDay, TruncHour
 
 from .models import Tweet, PerHourTweet, MaxRetweet
 
@@ -13,37 +12,37 @@ from .models import Tweet, PerHourTweet, MaxRetweet
 class MaxRetweetService:
     __max_retweet = []
 
-    def get_max_retweet(self):
+    def get_max_retweets(self):
         return self.__max_retweet
 
-    def set_max_retweet(self):
+    def set_max_retweets(self):
         self.__max_retweet = Tweet.max_retweet.all()
 
-    def store_max_retweet(self):
-        if MaxRetweet.objects.all():
-            MaxRetweet.objects.all().delete()
+    def store_max_retweets(self):
+        MaxRetweet.objects.all().delete()
         for tweet in self.__max_retweet:
             MaxRetweet.objects.create(
-                day=tweet['day'],
-                max_retweet=tweet['max_retweet']
+                tweet_day=tweet['tweet_day'],
+                tweet_retweet_cnt=tweet['tweet_retweet_cnt'],
+                tweet_id=tweet['tweet_id'],
+                tweet_text=tweet['tweet_text']
             )
 
 
 class TweetCountService:
     __tweet_cnt = []
 
-    def get_tweet_cnt(self):
+    def get_tweet_cnts(self):
         return self.__tweet_cnt
 
-    def set_tweet_cnt(self):
+    def set_tweet_cnts(self):
         self.__tweet_cnt = Tweet.tweet_count.all()
 
-    def store_tweet_cnt(self):
-        if PerHourTweet.objects.all():
-            PerHourTweet.objects.all().delete()
+    def store_tweet_cnts(self):
+        PerHourTweet.objects.all().delete()
         for tweet in self.__tweet_cnt:
             PerHourTweet.objects.create(
-                tweet_hour=tweet['hour'],
+                tweet_hour=tweet['tweet_hour'],
                 tweet_cnt=tweet['tweet_cnt']
             )
 
@@ -65,6 +64,9 @@ class TwitterAPIService:
     __api = tweepy.API(__auth)
     __week = datetime.now(tz=timezone('US/Central')) - timedelta(days=6)
     __tweets = []
+
+    def get_tweets(self):
+        return self.__tweets
 
     def set_tweets(self):
         """
@@ -100,19 +102,19 @@ class TwitterAPIService:
     def store_tweets(self):
         if Tweet.objects.all():
             Tweet.objects.filter(tweet_date__lte=self.__week).delete()
-            for tweet in self.__tweets:
-                try:
-                    new_tweet = Tweet(
-                        tweet_id=tweet.id,
-                        tweet_date=tweet.created_at,
-                        tweet_source=tweet.source,
-                        tweet_favorite_cnt=tweet.favorite_count,
-                        tweet_retweet_cnt=tweet.retweet_count,
-                        tweet_text=tweet.text,
-                        tweet_user=tweet.user
-                    )
-                    new_tweet.tweet_date = new_tweet.tweet_date - timedelta(hours=6)
-                    new_tweet.tweet_date = new_tweet.tweet_date.replace(tzinfo=timezone('US/Central'))
-                    new_tweet.save()
-                except IntegrityError:
-                    pass
+        for tweet in self.__tweets:
+            try:
+                new_tweet = Tweet(
+                    tweet_id=tweet.id,
+                    tweet_date=tweet.created_at,
+                    tweet_source=tweet.source,
+                    tweet_favorite_cnt=tweet.favorite_count,
+                    tweet_retweet_cnt=tweet.retweet_count,
+                    tweet_text=tweet.text,
+                    tweet_user=tweet.user
+                )
+                new_tweet.tweet_date = new_tweet.tweet_date - timedelta(hours=6)
+                new_tweet.tweet_date = new_tweet.tweet_date.replace(tzinfo=timezone('US/Central'))
+                new_tweet.save()
+            except IntegrityError:
+                pass

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 
-from .models import Tweet, MaxRetweet, PerHourTweet
+from .models import Tweet, PerHourTweet, MaxRetweet
 
 
 class TweetModelAdmin(ModelAdmin):
@@ -22,8 +22,10 @@ class PerHourTweetModelAdmin(ModelAdmin):
 
 class MaxRetweetModelAdmin(ModelAdmin):
     list_display = (
-        'day',
-        'max_retweet'
+        'tweet_day',
+        'tweet_retweet_cnt',
+        'tweet_id',
+        'tweet_text'
     )
 
 

@@ -3,7 +3,7 @@ from rest_framework import routers
 from django.conf.urls import url, include
 
 
-from .views import MaxRetweetViewSet, TweetPerHourViewSet, TweetListView, csv_view
+from .views import MaxRetweetViewSet, TweetPerHourViewSet, TweetListView, csv_view, test
 
 
 router = routers.DefaultRouter()
@@ -12,6 +12,7 @@ router.register(r'max-retweet', MaxRetweetViewSet)
 
 urlpatterns = [
     url(r'^csv/$', csv_view),
+    url(r'^test/$', test),
     url(r'^', include(router.urls)),
     url(r'^auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

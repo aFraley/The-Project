@@ -134,9 +134,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
-]
+STATIC_ROOT = os.path.join(BASE_DIR, "server/static")
 
 
 # Celery Configuration
@@ -150,7 +148,8 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_BEAT_SCHEDULE = {
     'extract_tweets_task': {
         'task': 'extract_tweets_task',
-        'schedule': crontab(minute='*/15')
+        'schedule': 7       # Rebuild the database
+        # 'schedule': crontab(minute='*/15')
     }
 }
 CELERY_BEAT_SCHEDULE_FILENAME = '/home/alan/Code/misc/django-ember/server/celerybeat-schedule'

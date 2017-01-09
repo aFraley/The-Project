@@ -10,8 +10,11 @@ class CountByHourManager(models.Manager):
         :return: Tweet object with max tweet_retweet_cnt
         """
         return super(CountByHourManager, self).get_queryset()\
-            .annotate(day=TruncDay('tweet_date'), hour=TruncHour('tweet_date'))\
-            .values('day', 'hour').annotate(tweet_cnt=Count('tweet_id')).order_by('-day').order_by('-hour')
+            .annotate(tweet_day=TruncDay('tweet_date'), tweet_hour=TruncHour('tweet_date'))\
+            .values('tweet_day', 'tweet_hour')\
+            .annotate(tweet_cnt=Count('tweet_id'))\
+            .order_by('-tweet_day')\
+            .order_by('-tweet_hour')
 
 
 class MaxRetweetManager(models.Manager):
@@ -21,8 +24,13 @@ class MaxRetweetManager(models.Manager):
         :return: max_retweet per day
         """
         return super(MaxRetweetManager, self).get_queryset()\
-            .annotate(day=TruncDay('tweet_date')).values('day')\
-            .annotate(max_retweet=Max('tweet_retweet_cnt')).order_by('-day')
+            .annotate(tweet_day=TruncDay('tweet_date')).values('tweet_day')\
+            .annotate(
+                tweet_retweet_cnt=Max('tweet_retweet_cnt'),
+                tweet_id=Max('tweet_id'),
+                tweet_text=Max('tweet_text')
+            )\
+            .order_by('-tweet_day')
 
 
 class Tweet(models.Model):
@@ -43,8 +51,10 @@ class Tweet(models.Model):
 
 
 class MaxRetweet(models.Model):
-    day = models.DateField()
-    max_retweet = models.IntegerField()
+    tweet_day = models.DateField()
+    tweet_retweet_cnt = models.IntegerField()
+    tweet_id = models.CharField(max_length=200, unique=True)
+    tweet_text = models.TextField()
 
 
 class PerHourTweet(models.Model):

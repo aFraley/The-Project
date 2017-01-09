@@ -6,6 +6,7 @@ from rest_framework import viewsets
 
 from .models import Tweet, PerHourTweet, MaxRetweet
 from .serializers import TweetSerializer, MaxRetweetSerializer
+from .tasks import extract_tweets_task
 
 
 class TweetPerHourViewSet(viewsets.ReadOnlyModelViewSet):
@@ -33,3 +34,8 @@ def csv_view(request):
         writer.writerow([row.tweet_id, row.tweet_date, row.tweet_retweet_cnt, row.tweet_favorite_cnt])
 
     return response
+
+
+def test(request):
+    extract_tweets_task.delay()
+    return HttpResponse('Tweets!')

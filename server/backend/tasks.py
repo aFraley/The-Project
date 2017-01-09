@@ -10,9 +10,9 @@ def extract_tweets_task():
     extract_tweets.set_tweets()
 
     tweet_count = TweetCountService()
-    tweet_count.set_tweet_cnt()
-    tweet_count.store_tweet_cnt()
+    tweet_count.set_tweet_cnts()
+    tweet_count.store_tweet_cnts()
 
     max_retweet = MaxRetweetService()
-    max_retweet.set_max_retweet()
-    max_retweet.store_max_retweet()
+    max_retweet.set_max_retweets()
+    max_retweet.store_max_retweets()
