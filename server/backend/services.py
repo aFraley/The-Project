@@ -3,6 +3,7 @@ import json
 from pytz import timezone
 import tweepy
 
+from django.utils import timezone
 from django.db import IntegrityError
 from django.db.models import Max, Min
 
@@ -62,7 +63,7 @@ class TwitterAPIService:
     __auth = tweepy.OAuthHandler(consumer_key=__CONSUMER_KEY, consumer_secret=__CONSUMER_SECRET)
     __auth.set_access_token(__ACCESS_TOKEN, __ACCESS_TOKEN_SECRET)
     __api = tweepy.API(__auth)
-    __week = datetime.now(tz=timezone('US/Central')) - timedelta(days=6)
+    __week = timezone.now() - timedelta(days=6)
     __tweets = []
 
     def get_tweets(self):
@@ -113,8 +114,6 @@ class TwitterAPIService:
                     tweet_text=tweet.text,
                     tweet_user=tweet.user
                 )
-                new_tweet.tweet_date = new_tweet.tweet_date - timedelta(hours=6)
-                new_tweet.tweet_date = new_tweet.tweet_date.replace(tzinfo=timezone('US/Central'))
                 new_tweet.save()
             except IntegrityError:
                 pass

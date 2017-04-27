@@ -120,3 +120,11 @@ pip-selfcheck.json
 ### Things
 secrets.json
 ember-front/
+django-ember_nginx
+django-ember_nginx.backup
+django-ember_nginx.sock
+celerybeat
+uwsgi.ini
+uwsgi_params
+restart.sh
+server/celerybeat-schedule.db

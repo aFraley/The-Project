@@ -31,7 +31,10 @@ SECRET_KEY = secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '192.168.1.9'
+]
 
 
 # Application definition
@@ -51,9 +54,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -148,8 +151,8 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_BEAT_SCHEDULE = {
     'extract_tweets_task': {
         'task': 'extract_tweets_task',
-        'schedule': 7       # Rebuild the database
-        # 'schedule': crontab(minute='*/15')
+        # 'schedule': 7       # Rebuild the database
+        'schedule': crontab(minute='*/15')
     }
 }
 CELERY_BEAT_SCHEDULE_FILENAME = '/home/alan/Code/misc/django-ember/server/celerybeat-schedule'
@@ -158,4 +161,5 @@ CELERY_BEAT_SCHEDULE_FILENAME = '/home/alan/Code/misc/django-ember/server/celery
 # Cross Origin Request Configuration
 CORS_ORIGIN_WHITELIST = (
     'localhost:4200',
+    'localhost:8000'
 )

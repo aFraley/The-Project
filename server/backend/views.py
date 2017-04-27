@@ -24,18 +24,22 @@ class TweetListView(ListView):
 
 
 def csv_view(request):
-    query = Tweet.objects.all()
+    """Return query results as a csv file."""
+    query = PerHourTweet.objects.all()
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="tweets.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(['tweet_id', 'tweet_date', 'tweet_retweet_cnt', 'tweet_favorite_cnt'])
     for row in query:
-        writer.writerow([row.tweet_id, row.tweet_date, row.tweet_retweet_cnt, row.tweet_favorite_cnt])
-
+        writer.writerow([row.tweet_hour, row.tweet_cnt])
     return response
 
 
 def test(request):
+    """
+    For testing purposes;
+    after a while,
+    the shell becomes tedious.
+    """
     extract_tweets_task.delay()
     return HttpResponse('Tweets!')

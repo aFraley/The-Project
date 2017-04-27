@@ -1,6 +1,6 @@
 'use strict';
 
-define('ember-front/tests/app.jshint', ['exports'], function (exports) {
+define('ember-front/tests/app.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | app.js');
@@ -9,7 +9,7 @@ define('ember-front/tests/app.jshint', ['exports'], function (exports) {
     assert.ok(true, 'app.js should pass jshint.');
   });
 });
-define('ember-front/tests/components/dashboard-page.jshint', ['exports'], function (exports) {
+define('ember-front/tests/components/dashboard-page.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | components/dashboard-page.js');
@@ -25,7 +25,7 @@ define('ember-front/tests/helpers/destroy-app', ['exports', 'ember'], function (
     _ember['default'].run(application, 'destroy');
   }
 });
-define('ember-front/tests/helpers/destroy-app.jshint', ['exports'], function (exports) {
+define('ember-front/tests/helpers/destroy-app.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | helpers/destroy-app.js');
@@ -60,7 +60,7 @@ define('ember-front/tests/helpers/module-for-acceptance', ['exports', 'qunit', '
     });
   };
 });
-define('ember-front/tests/helpers/module-for-acceptance.jshint', ['exports'], function (exports) {
+define('ember-front/tests/helpers/module-for-acceptance.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | helpers/module-for-acceptance.js');
@@ -80,7 +80,7 @@ define('ember-front/tests/helpers/resolver', ['exports', 'ember-front/resolver',
 
   exports['default'] = resolver;
 });
-define('ember-front/tests/helpers/resolver.jshint', ['exports'], function (exports) {
+define('ember-front/tests/helpers/resolver.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | helpers/resolver.js');
@@ -107,7 +107,7 @@ define('ember-front/tests/helpers/start-app', ['exports', 'ember', 'ember-front/
     return application;
   }
 });
-define('ember-front/tests/helpers/start-app.jshint', ['exports'], function (exports) {
+define('ember-front/tests/helpers/start-app.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | helpers/start-app.js');
@@ -248,7 +248,7 @@ define('ember-front/tests/integration/components/dashboard-page-test', ['exports
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('ember-front/tests/integration/components/dashboard-page-test.jshint', ['exports'], function (exports) {
+define('ember-front/tests/integration/components/dashboard-page-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | integration/components/dashboard-page-test.js');
@@ -257,7 +257,7 @@ define('ember-front/tests/integration/components/dashboard-page-test.jshint', ['
     assert.ok(true, 'integration/components/dashboard-page-test.js should pass jshint.');
   });
 });
-define('ember-front/tests/resolver.jshint', ['exports'], function (exports) {
+define('ember-front/tests/resolver.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | resolver.js');
@@ -266,7 +266,7 @@ define('ember-front/tests/resolver.jshint', ['exports'], function (exports) {
     assert.ok(true, 'resolver.js should pass jshint.');
   });
 });
-define('ember-front/tests/router.jshint', ['exports'], function (exports) {
+define('ember-front/tests/router.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | router.js');
@@ -275,7 +275,7 @@ define('ember-front/tests/router.jshint', ['exports'], function (exports) {
     assert.ok(true, 'router.js should pass jshint.');
   });
 });
-define('ember-front/tests/routes/application.jshint', ['exports'], function (exports) {
+define('ember-front/tests/routes/application.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/application.js');
@@ -284,7 +284,7 @@ define('ember-front/tests/routes/application.jshint', ['exports'], function (exp
     assert.ok(true, 'routes/application.js should pass jshint.');
   });
 });
-define('ember-front/tests/routes/dashboard.jshint', ['exports'], function (exports) {
+define('ember-front/tests/routes/dashboard.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | routes/dashboard.js');
@@ -293,11 +293,20 @@ define('ember-front/tests/routes/dashboard.jshint', ['exports'], function (expor
     assert.ok(true, 'routes/dashboard.js should pass jshint.');
   });
 });
+define('ember-front/tests/services/tweet-api.jshint.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | services/tweet-api.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'services/tweet-api.js should pass jshint.');
+  });
+});
 define('ember-front/tests/test-helper', ['exports', 'ember-front/tests/helpers/resolver', 'ember-qunit'], function (exports, _emberFrontTestsHelpersResolver, _emberQunit) {
 
   (0, _emberQunit.setResolver)(_emberFrontTestsHelpersResolver['default']);
 });
-define('ember-front/tests/test-helper.jshint', ['exports'], function (exports) {
+define('ember-front/tests/test-helper.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | test-helper.js');
@@ -318,7 +327,7 @@ define('ember-front/tests/unit/routes/application-test', ['exports', 'ember-quni
     assert.ok(route);
   });
 });
-define('ember-front/tests/unit/routes/application-test.jshint', ['exports'], function (exports) {
+define('ember-front/tests/unit/routes/application-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/application-test.js');
@@ -339,13 +348,57 @@ define('ember-front/tests/unit/routes/dashboard-test', ['exports', 'ember-qunit'
     assert.ok(route);
   });
 });
-define('ember-front/tests/unit/routes/dashboard-test.jshint', ['exports'], function (exports) {
+define('ember-front/tests/unit/routes/dashboard-test.jshint.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('JSHint | unit/routes/dashboard-test.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/dashboard-test.js should pass jshint.');
+  });
+});
+define('ember-front/tests/unit/services/apiservice-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('service:apiservice', 'Unit | Service | apiservice', {
+    // Specify the other units that are required for this test.
+    // needs: ['service:foo']
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var service = this.subject();
+    assert.ok(service);
+  });
+});
+define('ember-front/tests/unit/services/apiservice-test.jshint.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/services/apiservice-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/services/apiservice-test.js should pass jshint.');
+  });
+});
+define('ember-front/tests/unit/services/tweet-api-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('service:tweet-api', 'Unit | Service | tweet api', {
+    // Specify the other units that are required for this test.
+    // needs: ['service:foo']
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var service = this.subject();
+    assert.ok(service);
+  });
+});
+define('ember-front/tests/unit/services/tweet-api-test.jshint.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint | unit/services/tweet-api-test.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/services/tweet-api-test.js should pass jshint.');
   });
 });
 /* jshint ignore:start */

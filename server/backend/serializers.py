@@ -16,6 +16,14 @@ class MaxRetweetSerializer(serializers.ModelSerializer):
     class Meta:
         model = MaxRetweet
         fields = (
-            'day',
-            'max_retweet'
+            'tweet_day',
+            'tweet_retweet_cnt',
+            'tweet_id',
+            'tweet_text'
         )
+
+
+# tweet_day = models.DateField()
+# tweet_retweet_cnt = models.IntegerField()
+# tweet_id = models.CharField(max_length=200, unique=True)
+# tweet_text = models.TextField()
