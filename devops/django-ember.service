@@ -1,0 +1,10 @@
+[Unit]
+Description = django-ember twitter harvestor
+After = network.target
+
+[Service]
+ExecStart = /home/alan/Code/misc/django-ember/venv/bin/uwsgi --ini /home/alan/Code/misc/django-ember/devops/uwsgi.ini
+ExecStop = /home/alan/Code/misc/django-ember/venv/bin/uwsgi --stop /tmp/myapp.pid
+
+[Install]
+WantedBy = multi-user.target

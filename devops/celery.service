@@ -1,0 +1,30 @@
+[Unit]
+Description=Celery Service
+After=network.target
+
+[Service]
+Type = forking
+ExecStart = /bin/sh -c \
+    'cd /home/alan/Code/misc/django-ember && \
+    . venv/bin/activate && \
+    cd server && \
+    celery multi start w1 -A server -B -l info --pidfile=/tmp/%n.pid'
+
+ExecStop = /bin/sh -c \
+    'cd /home/alan/Code/misc/django-ember && \
+    . venv/bin/activate && \
+    cd server && \
+    celery multi stopwait w1 --piddfile=/tmp/%n.pid'
+
+
+ExecReload = /bin/sh -c \
+    'cd /home/alan/Code/misc/django-ember && \
+    . venv/bin/activate && \
+    cd server && \
+    celery multi restart w1 --piddfile=/tmp/%n.pid'
+
+KillSignal=TERM
+
+
+[Install]
+WantedBy=multi-user.target
