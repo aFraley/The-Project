@@ -8,6 +8,7 @@ from django.db import IntegrityError
 from django.db.models import Max, Min
 
 from .models import Tweet, PerHourTweet, MaxRetweet
+from django.conf import settings
 
 
 class MaxRetweetService:
@@ -53,12 +54,12 @@ class TwitterAPIService:
     Get some tweets from the twitter API.
     Set up tweepy authorization on every instance.
     """
-    with open('/home/alan/Code/misc/django-ember/secrets.json') as f:
+    with open(settings.KEYS_PATH) as f:
         keys = json.load(f)
-    __CONSUMER_KEY = keys[1]['consumer_key']
-    __CONSUMER_SECRET = keys[2]['consumer_secret']
-    __ACCESS_TOKEN = keys[3]['access_token']
-    __ACCESS_TOKEN_SECRET = keys[4]['access_token_secret']
+    __CONSUMER_KEY = keys['twitter']['consumer_key']
+    __CONSUMER_SECRET = keys['twitter']['consumer_secret']
+    __ACCESS_TOKEN = keys['twitter']['access_token']
+    __ACCESS_TOKEN_SECRET = keys['twitter']['access_token_secret']
 
     __auth = tweepy.OAuthHandler(consumer_key=__CONSUMER_KEY, consumer_secret=__CONSUMER_SECRET)
     __auth.set_access_token(__ACCESS_TOKEN, __ACCESS_TOKEN_SECRET)

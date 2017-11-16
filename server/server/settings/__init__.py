@@ -18,13 +18,13 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open('/home/alan/Code/misc/django-ember/secrets.json') as f:
-    secret_key = json.load(f)[0]['secret_key']
+KEYS_PATH = os.path.join(BASE_DIR, 'keys.json')
+with open(KEYS_PATH) as f:
+    secret_key = json.load(f)['secret']
 
 SECRET_KEY = secret_key
 
@@ -47,10 +47,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'celery',
     'backend',
-    'frontend'
+    'frontend',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -91,11 +93,7 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tweet',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': 'tweets'
     }
 }
 
@@ -130,7 +128,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -148,18 +146,14 @@ CELERY_RESULT_BACKEND = 'rpc://'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json']
-CELERY_BEAT_SCHEDULE = {
-    'extract_tweets_task': {
-        'task': 'extract_tweets_task',
-        # 'schedule': 7       # Rebuild the database
-        'schedule': crontab(minute='*/15')
-    }
-}
-CELERY_BEAT_SCHEDULE_FILENAME = '/home/alan/Code/misc/django-ember/server/celerybeat-schedule'
-
 
 # Cross Origin Request Configuration
 CORS_ORIGIN_WHITELIST = (
     'localhost:4200',
     'localhost:8000'
 )
+
+try:
+    from .local import *
+except ImportError:
+    pass
