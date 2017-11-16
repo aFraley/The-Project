@@ -127,4 +127,6 @@ celerybeat
 uwsgi.ini
 uwsgi_params
 restart.sh
-server/celerybeat-schedule.db
+
+server/server/settings/local.py
+server/server/keys.json
